@@ -8,6 +8,7 @@ Open Source Utility to take Backups For Wordpress Databases
 
 
 ```bash
+  -Check Root Directory Path - pwd
   cd /root-directory-of-project
   mkdir smartbackups
   mkdir/smartbackups/
