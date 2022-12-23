@@ -1,21 +1,50 @@
 #!/bin/bash
-# Variable
-NOW=$(date +%d-%m-%Y-%H-%M)
-SQL_BACKUP=${NOW}_database.sql
-FILES_BACKUP=${NOW}_files.tar.gz
-DB_BACKUP_FILE_ROOT=/home/$USER/smartbackups/db
-Logpath=/home/$USER/smartbackups/logs/backup_log.txt
 
-DB_NAME="sangbadonline_wp_g8ig6" #Replace DB_NAME
-DB_USER="sangbadonline_wp_rafqr" #Replace DB_USER
-DB_PASSWORD="05nMQCKhB23#pQ%$" #Replace DB_Password
-DB_HOST="localhost"
+# Set variables
+SQL_USERNAME=bongohunt_efwe57 #DB USERNAME
+SQL_PASSWORD=8dvDqO65CT #DB PASSWORD
+SQL_HOST=localhost #DB HOST
+DATABASE=bongohunt_bhoh30 #DB DATABASE NAME
+MAX_BACKUPS=8 #How Many Backup Want To Store
 
-# Backup database
-mysqldump --add-drop-table -u$DB_USER -p$DB_PASSWORD -h$DB_HOST $DB_NAME > $DB_BACKUP_FILE_ROOT/$SQL_BACKUP 2>&1
+#Script Variables - Not To Change
+Green='\033[0;32m' 
+NC='\033[0m'
+RED='\033[0;31m'
+BACKUP_FOLDER=/home/$USER/smartbackups/db 
+LOG_FOLDER=/home/$USER/smartbackups/log
+
+#Create backup folder if it doesn't exist
+mkdir -p $BACKUP_FOLDER
+mkdir -p $LOG_FOLDER
+
+# Generate current timestamp
+TIMESTAMP=$(date +%Y-%m-%d_%H_%M_%S)
+
+# Generate backup file name
+BACKUP_FILE=$DATABASE-$TIMESTAMP.sql
 
 
-#Log
-echo "$SQL_BACKUP | Database backup created at $(date)" >> $Logpath
+# Generate backup
+mysqldump --add-drop-table -u $SQL_USERNAME -p$SQL_PASSWORD -h $SQL_HOST $DATABASE > $BACKUP_FOLDER/$BACKUP_FILE 2>&1
 
-echo "$SQL_BACKUP | Database backup created at $(date)"
+
+# List old backups
+DELETED_BACKUPS=$(ls -t $BACKUP_FOLDER/$DATABASE-*.sql | tail -n +$((MAX_BACKUPS+1)))
+#Delete Old Backup
+rm -r $DELETED_BACKUPS
+
+#Delet Log
+echo "$DELETED_BACKUPS | Database Removed Successfully $(date)" >> $LOG_FOLDER/deleted_backups.txt
+
+#backup Log
+echo "$BACKUP_FILE | Database backup created at $(date)" >> $LOG_FOLDER/backup_log.txt
+
+#Terminal Output
+echo  -e "${Green}$BACKUP_FILE | Database backup created at $(date)${NC}"
+echo -e "${RED}$DELETED_BACKUPS | Database Removed Successfully $(date)${NC}"
+
+# Delete old backups
+#ls -t $BACKUP_FOLDER/$DATABASE-*.sql | tail -n +$((MAX_BACKUPS+1)) | xargs -d '\n' rm
+
+
