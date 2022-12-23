@@ -11,10 +11,19 @@ Open Source Utility to take Backups For Wordpress Databases
   -Check Root Directory Path - pwd
   cd /root-directory-of-project
   mkdir smartbackups
-  mkdir/smartbackups/
-  cd / && wget https://raw.githubusercontent.com/ulixtech/smartbackup.sh/main/sbdb.sh
+  mkdir /smartbackups/db
+  mkdir /smartbackups/logs
+  touch /smartbackups/logs/backup_log.txt
+  wget https://raw.githubusercontent.com/ulixtech/smartbackup.sh/main/sbdb.sh
   chmod u+x sbdb.sh
 
+```
+
+## Run The Command
+
+
+```bash
+  /home/$USER/sbdb.sh
 ```
 
 ## Setup Rsync to Remote Host
