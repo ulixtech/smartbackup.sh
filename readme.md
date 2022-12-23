@@ -26,6 +26,10 @@ Open Source Utility to take Backups For Wordpress Databases
   echo "0 */4 * * * /home/$USER/sbdb.sh" | crontab
 ```
 
+## Features
+
+- Tested With Cpanel Only 
+- Will Work With Any Unix Based System 
 
 ## Resources
 
