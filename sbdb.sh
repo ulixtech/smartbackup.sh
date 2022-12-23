@@ -1,10 +1,10 @@
 #!/bin/bash
 
 # Set variables
-SQL_USERNAME=bongohunt_efwe57 #DB USERNAME
-SQL_PASSWORD=8dvDqO65CT #DB PASSWORD
+SQL_USERNAME=username #DB USERNAME
+SQL_PASSWORD=password #DB PASSWORD
 SQL_HOST=localhost #DB HOST
-DATABASE=bongohunt_bhoh30 #DB DATABASE NAME
+DATABASE=database_name #DB DATABASE NAME
 MAX_BACKUPS=8 #How Many Backup Want To Store
 
 #Script Variables - Not To Change
